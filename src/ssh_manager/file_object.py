@@ -3,8 +3,8 @@ The file object module is a cross platform wrapper object for files.
 """
 
 from pathlib import Path
-from .file_permissions import FilePermissions
 from time import strftime
+from .file_permissions import FilePermissions
 
 
 class FileObject:
