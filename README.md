@@ -3,6 +3,9 @@
 
 **keymate** is an SSH key generator, manager, and productivity tool designed to simplify and automate SSH key management tasks. It provides a command-line interface and a GUI for generating, monitoring, and managing SSH keys securely and efficiently.
 
+## Contributing
+- This project is still in development and actively seeking contributors!
+
 ## Features
 
 - Generate RSA and Ed25519 SSH key pairs
