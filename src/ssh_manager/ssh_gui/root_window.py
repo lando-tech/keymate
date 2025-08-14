@@ -15,6 +15,9 @@ from ssh_manager.ssh_gui.fonts import ARIAL_REG_16
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # from keygen import KeyGen
 
+PADX = 5
+PADY = 5
+
 
 class RootWindow:
     """
@@ -49,10 +52,16 @@ if __name__ == "__main__":
     app.configure_global_listbox_font(ARIAL_REG_16)
     m_frame = MainFrame(app.root)
     m_frame.set_frame_title(
-        title="KeyGen", font_config=ARIAL_REG_16, grid_column=0, grid_row=0, colspan=2
+        title="KeyGen", font_config=ARIAL_REG_16, padx=PADX, pady=PADY
     )
-    m_frame.set_keytype_combobox(
-        list_values=["rsa", "ed25519"], font_config=ARIAL_REG_16, col=0, row=1
+    m_frame.configure_keytype_combobox(
+        list_values=["rsa", "ed25519"], font_config=ARIAL_REG_16, padx=PADX, pady=PADY
+    )
+    m_frame.configure_keysize_combobox(
+        list_values=["2048", "3072", "4096"],
+        font_config=ARIAL_REG_16,
+        padx=PADX,
+        pady=PADY,
     )
     app.set_win_size(400, 400)
     app.root.mainloop()

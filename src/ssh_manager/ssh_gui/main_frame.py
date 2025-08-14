@@ -15,7 +15,12 @@ class MainFrame:
         self.frame = ttk.Frame(root, padding="5")
         self.frame.grid(column=0, row=0, sticky="nsew")
         self.frame_title = ttk.Label(master=self.frame)
+
+        self.keytype_label = ttk.Label(master=self.frame, text="Keytype")
         self.keytype_combobox = ttk.Combobox(master=self.frame, state="readonly")
+        self.keytype_combobox.bind("<<ComboboxSelected>>", self.set_keytype_action)
+
+        self.keysize_combobox = ttk.Combobox(master=self.frame, state="readonly")
 
     def set_frame_title(self, **kwargs):
         """
@@ -24,17 +29,35 @@ class MainFrame:
         self.frame_title.config(
             text=kwargs.get("title"), font=kwargs.get("font_config")
         )
-        self.frame_title.grid(
-            column=kwargs.get("col"),
-            row=kwargs.get("row"),
-            columnspan=kwargs.get("colspan"),
-        )
+        self.frame_title.pack(padx=kwargs.get("padx"), pady=kwargs.get("pady"))
 
-    def set_keytype_combobox(self, **kwargs):
+    def configure_keytype_combobox(self, **kwargs):
         """
         Configure the Key-type Combo-box
         """
         self.keytype_combobox.config(
+            values=kwargs.get("list_values"),
+            font=kwargs.get("font_config"),
+        )
+        self.keytype_label.pack(padx=kwargs.get("padx"), pady=kwargs.get("pady"))
+        self.keytype_combobox.pack(padx=kwargs.get("padx"), pady=kwargs.get("pady"))
+
+    def configure_keysize_combobox(self, **kwargs):
+        """
+        Configure the Key-size Combo-box
+        """
+        self.keysize_combobox.config(
             values=kwargs.get("list_values"), font=kwargs.get("font_config")
         )
-        self.keytype_combobox.grid(column=kwargs.get("col"), row=kwargs.get("row"))
+        self.keysize_combobox.pack()
+
+    def set_keytype_action(self, event):
+        """
+        add doc-string
+        """
+        value = self.keytype_combobox.get()
+        if value == "ed25519":
+            self.keysize_combobox.config(state=["disabled"])
+            self.keysize_combobox.selection_clear()
+        else:
+            self.keysize_combobox.config(state=["!disabled", "readonly"])
