@@ -22,6 +22,7 @@ class KeyConfig:
         self.keysize_combobox = ttk.Combobox(master=self.root, state="readonly")
         self.key_path = ttk.Entry(master=self.root)
         self.browse_btn = ttk.Button(master=self.root)
+        self.dir_path = ""
 
     def configure_keytype_combobox(self, **kwargs):
         """
@@ -57,7 +58,7 @@ class KeyConfig:
         """
         Configure the file browser button
         """
-        self.browse_btn.config(text="Browse", command=filedialog.askdirectory())
+        self.browse_btn.config(text="Browse", command=self.open_directory)
         self.browse_btn.pack(padx=self.padx, pady=self.pady)
 
     def set_keytype_action(self, event):
@@ -73,4 +74,4 @@ class KeyConfig:
             self.keysize_combobox.config(state="readonly")
 
     def open_directory(self):
-        pass
+        self.dir_path = filedialog.askdirectory()
