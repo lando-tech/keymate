@@ -1,3 +1,5 @@
+from tkinter.font import Font
+
 ARIAL_BOLD_12 = ("Arial", 12, "bold")
 ARIAL_BOLD_14 = ("Arial", 14, "bold")
 ARIAL_BOLD_16 = ("Arial", 16, "bold")

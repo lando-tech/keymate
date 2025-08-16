@@ -3,8 +3,9 @@ Add docstring
 """
 
 import tkinter as tk
+from tkinter.font import Font
 from ssh_manager.ssh_gui.main_frame import MainFrame
-from ssh_manager.ssh_gui.fonts import ARIAL_REG_16
+from ssh_manager.ssh_gui.fonts import ARIAL_REG_16, ARIAL_BOLD_16
 
 # from tkinter import ttk
 # from tkinter import messagebox
@@ -26,9 +27,7 @@ class RootWindow:
 
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("SSH Key Manager")
-        # self.key_gen = KeyGen()
-        # self.setup_ui()
+        self.root.title("keymate")
 
     def set_win_size(self, width: int, height: int):
         """
@@ -50,7 +49,9 @@ class RootWindow:
 if __name__ == "__main__":
     app = RootWindow()
     app.configure_global_listbox_font(ARIAL_REG_16)
-    m_frame = MainFrame(app.root, ARIAL_REG_16, (PADX, PADY))
+    m_frame = MainFrame(
+        app.root, Font(family="arial", size=16, weight="bold"), (PADX, PADY)
+    )
     m_frame.key_config.configure_keytype_opts(
         key_type_values=["rsa", "ed25519"],
         key_size_values=["2048", "3072", "4096"],
@@ -62,5 +63,6 @@ if __name__ == "__main__":
         key_name_label="Key-name",
     )
     m_frame.configure_generate_button(label="Generate")
+    print(m_frame.key_config.keytype_config.keytype_combobox.cget("font"))
     app.set_win_size(400, 400)
     app.root.mainloop()

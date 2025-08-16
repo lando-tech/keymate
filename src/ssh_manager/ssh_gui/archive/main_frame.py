@@ -22,7 +22,9 @@ class MainFrame:
         self.frame.grid(column=0, row=0, sticky="nsew")
         self.frame_title = ttk.Label(master=self.frame)
         self.font = font_config
-        self.key_config = KeyConfig(self.frame, self.font, pad[0], pad[1])
+        self.key_config = KeyConfig(
+            self.frame, font_config=font_config, padx=pad[0], pady=pad[1]
+        )
         self.generate_btn = tk.Button(
             master=self.frame, font=font_config, padx=pad[0], pady=pad[1]
         )
@@ -32,9 +34,9 @@ class MainFrame:
         Set the title for the main frame
         """
         self.frame_title.config(
-            text=kwargs.get("title"), font=kwargs.get("font_config")
+            text=kwargs.get("title"), font=kwargs.get("font_config") # pyright: ignore[reportArgumentType]
         )
-        self.frame_title.pack(padx=kwargs.get("padx"), pady=kwargs.get("pady"))
+        self.frame_title.pack(padx=kwargs.get("padx"), pady=kwargs.get("pady")) # pyright: ignore[reportArgumentType]
 
     def configure_generate_button(self, label):
         """
@@ -49,9 +51,9 @@ class MainFrame:
         """
         key_gen = KeyGen()
         key_opts = self.get_key_form_values()
-        file_path = key_opts.get("key-path") + os.path.sep + key_opts.get("key-name")
+        file_path = key_opts.get("key-path") + os.path.sep + key_opts.get("key-name") # type: ignore
         if key_opts.get("key-type") == "rsa":
-            priv_key, pub_key = key_gen.generate_rsa_keypair(key_opts.get("key-size"))
+            priv_key, pub_key = key_gen.generate_rsa_keypair(key_opts.get("key-size")) # type: ignore
             key_gen.save_keypair(file_path, priv_key, pub_key)
             print(f"Keys saved to {file_path}")
         else:

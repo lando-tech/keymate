@@ -4,6 +4,7 @@ add doc-string
 
 from tkinter import ttk
 import tkinter as tk
+from tkinter import font
 from tkinter import filedialog
 
 
@@ -12,9 +13,11 @@ class KeyTypeConfig:
     add doc-string
     """
 
-    def __init__(self, root):
+    def __init__(self, root, font_config):
         self.root = root
-        self.keytype_combobox = ttk.Combobox(master=self.root, state="readonly")
+        self.keytype_combobox = ttk.Combobox(
+            master=self.root, state="readonly", font=font_config
+        )
         self.keytype_combobox.bind("<<ComboboxSelected>>", self.set_keytype_action)
         self.keysize_combobox = ttk.Combobox(master=self.root, state="readonly")
 
@@ -23,11 +26,12 @@ class KeyTypeConfig:
         Configure the Key-type Combo-box
         """
         self.keytype_combobox.config(
+            font=kwargs.get("font_config"),
             values=kwargs.get("key_type_values"),
-            font=kwargs.get("font"),
         )
         label = ttk.Label(
-            master=self.root, font=kwargs.get("font"), text=kwargs.get("key_type_label")
+            master=self.root,
+            text=kwargs.get("key_type_label"),
         )
         label.pack(padx=kwargs.get("padx"), pady=kwargs.get("pady"))
         self.keytype_combobox.pack(padx=kwargs.get("padx"), pady=kwargs.get("pady"))
@@ -37,7 +41,7 @@ class KeyTypeConfig:
         Configure the Key-size Combo-box
         """
         self.keysize_combobox.config(
-            values=kwargs.get("key_size_values"), font=kwargs.get("font")
+            values=kwargs.get("key_size_values"), font=kwargs.get("font_config")
         )
         label = ttk.Label(
             master=self.root, text=kwargs.get("key_size_label"), font=kwargs.get("font")
@@ -74,9 +78,11 @@ class KeyPathConfig:
         """
         Configure the Key-path Entry widget
         """
-        self.key_path.config(font=kwargs.get("font"), width=kwargs.get("width"))
+        self.key_path.config(font=kwargs.get("font_config"), width=kwargs.get("width"))
         label = ttk.Label(
-            master=self.root, text=kwargs.get("key_path_label"), font=kwargs.get("font")
+            master=self.root,
+            text=kwargs.get("key_path_label"),
+            font=kwargs.get("font_config"),
         )
         label.pack(padx=kwargs.get("padx"), pady=kwargs.get("pady"))
 
@@ -86,9 +92,13 @@ class KeyPathConfig:
         """
         Configure the Key-name Entry widget
         """
-        self.key_name_entry.config(font=kwargs.get("font"), width=kwargs.get("width"))
+        self.key_name_entry.config(
+            font=kwargs.get("font_config"), width=kwargs.get("width")
+        )
         label = ttk.Label(
-            master=self.root, text=kwargs.get("key_name_label"), font=kwargs.get("font")
+            master=self.root,
+            text=kwargs.get("key_name_label"),
+            font=kwargs.get("font_config"),
         )
         label.pack(padx=kwargs.get("padx"), pady=kwargs.get("pady"))
         self.key_name_entry.pack(padx=kwargs.get("padx"), pady=kwargs.get("pady"))
@@ -98,7 +108,7 @@ class KeyPathConfig:
         Configure the file browser button
         """
         self.browse_btn.config(
-            text="Browse", command=self.open_directory, font=kwargs.get("font")
+            text="Browse", command=self.open_directory, font=kwargs.get("font_config")
         )
         self.browse_btn.pack(padx=kwargs.get("padx"), pady=kwargs.get("pady"))
 
@@ -122,12 +132,12 @@ class KeyConfig:
     add doc-string
     """
 
-    def __init__(self, root, font_config: tuple[str, int, str], padx: int, pady: int):
+    def __init__(self, root, font_config: font.Font, padx: int, pady: int):
         self.root = root
-        self.font = font_config
+        self.font_config = font_config
         self.padx = padx
         self.pady = pady
-        self.keytype_config = KeyTypeConfig(self.root)
+        self.keytype_config = KeyTypeConfig(self.root, self.font_config)
         self.keypath_config = KeyPathConfig(self.root)
 
     def configure_keytype_opts(self, **kwargs):
@@ -135,14 +145,14 @@ class KeyConfig:
         Add doc-string
         """
         self.keytype_config.configure_keytype_combobox(
-            font=self.font,
+            font_config=self.font_config,
             padx=self.padx,
             pady=self.pady,
             key_type_values=kwargs.get("key_type_values"),
             key_type_label=kwargs.get("key_type_label"),
         )
         self.keytype_config.configure_keysize_combobox(
-            font=self.font,
+            font_config=self.font_config,
             padx=self.padx,
             pady=self.pady,
             key_size_values=kwargs.get("key_size_values"),
@@ -155,16 +165,16 @@ class KeyConfig:
         """
         self.keypath_config.configure_keypath_entry(
             key_path_label=kwargs.get("key_path_label"),
-            font=self.font,
+            font_config=self.font_config,
             padx=self.padx,
             pady=self.pady,
         )
         self.keypath_config.configure_file_finder(
-            font=self.font, padx=self.padx, pady=self.pady
+            font=self.font_config, padx=self.padx, pady=self.pady
         )
         self.keypath_config.configure_keyname_entry(
             key_name_label=kwargs.get("key_name_label"),
-            font=self.font,
+            font_config=self.font_config,
             padx=self.padx,
             pady=self.pady,
         )
