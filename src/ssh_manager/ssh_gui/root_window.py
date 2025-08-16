@@ -50,18 +50,14 @@ class RootWindow:
 if __name__ == "__main__":
     app = RootWindow()
     app.configure_global_listbox_font(ARIAL_REG_16)
-    m_frame = MainFrame(app.root)
-    m_frame.set_frame_title(
-        title="KeyGen", font_config=ARIAL_REG_16, padx=PADX, pady=PADY
+    m_frame = MainFrame(app.root, ARIAL_REG_16, (PADX, PADY))
+    m_frame.key_config.configure_keytype_combobox(
+        list_values=["rsa", "ed25519"], label="Key-type"
     )
-    m_frame.configure_keytype_combobox(
-        list_values=["rsa", "ed25519"], font_config=ARIAL_REG_16, padx=PADX, pady=PADY
+    m_frame.key_config.configure_keysize_combobox(
+        list_values=["2048", "3072", "4096"], label="Key-size"
     )
-    m_frame.configure_keysize_combobox(
-        list_values=["2048", "3072", "4096"],
-        font_config=ARIAL_REG_16,
-        padx=PADX,
-        pady=PADY,
-    )
+    m_frame.key_config.configure_keypath_entry(width=25, label="Key-path")
+    m_frame.key_config.configure_file_finder()
     app.set_win_size(400, 400)
     app.root.mainloop()
