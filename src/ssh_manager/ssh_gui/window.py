@@ -57,7 +57,10 @@ class SshKeyForm(QWidget):
         key_path_layout.setSpacing(5)
         key_path_layout.emplace_all_widgets(0, 0)
 
-        key_passphrase_layout = KeyPassphraseWidget()
+        key_passphrase_layout = KeyPassphraseWidget(
+            "Passphrase:", "Comment:", "user@this_computer"
+        )
+        key_passphrase_layout.setSpacing(5)
         key_passphrase_layout.emplace_all_widgets(0, 0)
         generate_button = QPushButton("Generate Key Pair")
 

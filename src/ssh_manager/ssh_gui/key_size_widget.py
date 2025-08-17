@@ -52,3 +52,15 @@ class KeySizeWidget(QGridLayout):
             self.key_size_combo.setCurrentText("")
         else:
             self.key_size_combo.setEnabled(True)
+
+    def export_form_values(self):
+        """
+        Add doc-string
+        """
+        vals = {}
+        vals["key-type"] = self.key_type_combo.currentText()
+        if vals["key-type"] == "rsa":
+            vals["key-size"] = int(self.key_size_combo.currentText())
+        else:
+            vals["key-size"] = 0
+        return vals

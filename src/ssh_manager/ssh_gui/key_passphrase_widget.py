@@ -18,48 +18,31 @@ class KeyPassphraseWidget(QGridLayout):
     Add doc-string
     """
 
-    def __init__(self):
+    def __init__(
+        self, passphrase_label: str, comment_label: str, comment_placeholder: str
+    ):
         super().__init__()
-        self.passphrase_radio = QRadioButton()
+        self.passphrase_label = QLabel(passphrase_label)
         self.passphrase_entry = QLineEdit()
         self.passphrase_entry.setEchoMode(QLineEdit.EchoMode.Password)
 
-        self.comment_radio = QRadioButton()
+        self.confirm_label = QLabel("Confirm Passphrase:")
+        self.confirm_passphrase = QLineEdit()
+        self.confirm_passphrase.setEchoMode(QLineEdit.EchoMode.Password)
+
+        self.comment_label = QLabel(comment_label)
         self.comment_entry = QLineEdit()
+        self.comment_entry.setPlaceholderText(comment_placeholder)
 
-    def emplace_all_widgets(self, start_row, start_col, step_column: bool = True):
+    def emplace_all_widgets(self, start_row, start_col):
         """
         Add doc-string
         """
-        if step_column:
-            self.addWidget(self.passphrase_entry, start_row, start_col)
-            self.addWidget(self.passphrase_radio, start_row, start_col + 1)
+        self.addWidget(self.passphrase_label, start_row, start_col)
+        self.addWidget(self.passphrase_entry, start_row, start_col + 1)
 
-            self.addWidget(self.comment_radio, start_row + 1, start_col)
-            self.addWidget(self.comment_entry, start_row + 1, start_col + 1)
-        else:
-            self.addWidget(self.passphrase_radio, start_row, start_col)
-            self.addWidget(self.passphrase_radio, start_row + 1, start_col)
+        self.addWidget(self.confirm_label, start_row + 1, start_col)
+        self.addWidget(self.confirm_passphrase, start_row + 1, start_col + 1)
 
-            self.addWidget(self.comment_radio, start_row + 2, start_col)
-            self.addWidget(self.comment_entry, start_row + 3, start_col)
-
-    def disable_passphrase_entry(self):
-        """
-        Add doc-string
-        """
-        if self.passphrase_radio.isChecked():
-            self.passphrase_entry.setEnabled(False)
-            self.passphrase_entry.clear()
-        else:
-            self.passphrase_entry.setEnabled(True)
-
-    def disable_comment_entry(self):
-        """
-        Add doc-string
-        """
-        if self.comment_radio.isChecked():
-            self.comment_entry.setEnabled(False)
-            self.comment_entry.clear()
-        else:
-            self.comment_entry.setEnabled(True)
+        self.addWidget(self.comment_label, start_row + 2, start_col)
+        self.addWidget(self.comment_entry, start_row + 2, start_col + 1)
